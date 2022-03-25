@@ -8,10 +8,8 @@ def delete(update: Update, context: CallbackContext) -> None:
     if message =='/elimina':
         user ="@"+str(context.bot.get_chat(chat_id)['username'])
         df = get_on_sale()
-        ret = []
-        for i in range(len(df)):
-            if user == str(df['Venditore'][i]):
-                ret.append(df.iloc[i].name)
+        condition = df['Venditore'] == user
+        ret = df[condition].index.tolist()
 
         if len(ret)!=0:
             context.bot.send_message(chat_id, "Quale libro vuoi eliminare?\n")
