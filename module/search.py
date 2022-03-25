@@ -1,14 +1,16 @@
 from module.get_on_sale import get_on_sale
 from module.find_book import find_book
+from telegram import Update
+from telegram.ext import CallbackContext
 
-def cerca(update, context):
+def search(update: Update, context: CallbackContext) -> None:
     chat_id=update.effective_chat.id
     message=update.message.text
-    if(message!='/cerca'):
+    if message!='/cerca':
         message = message.split('/cerca ')[1]
         df = get_on_sale()
         found, v = find_book(message, df)
-        if(found):
+        if found:
             res=''
             for i in range(len(v)):
                 res+='ISBN: ' +str(df.iloc[v[i]][0]) + '\n' + 'Titolo: ' +str(df.iloc[v[i]][1]) + '\n' + 'Autori: '+str(df.iloc[v[i]][2]) + '\n' + 'Venditore: ' + str(df.iloc[v[i]][3]) + '\n' + 'Prezzo: ' + str(df.iloc[v[i]][4]) + ' €\n\n'
