@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from telegram import Update
 from telegram.ext import CallbackContext
+from module.shared import SHOP_DB_PATH, BOOKS_DB_PATH
 
 def sell(update: Update, context: CallbackContext) -> None:
     chat_id = update.effective_chat.id
@@ -28,7 +29,7 @@ def sell(update: Update, context: CallbackContext) -> None:
                 df = get_on_sale()
                 new_row = pd.DataFrame({'ISBN':str(isbn),'Titolo':str(title), 'Autori':str(authors), 'Venditore':str(username), 'Prezzo':str(prezzo)}, index=[len(df)])
                 df = pd.concat([df, new_row])
-                df.to_csv('data/on_sale.csv')
+                df.to_csv(SHOP_DB_PATH)
                 context.bot.send_message(chat_id, "Il libro è stato aggiunto al database.")
             else:
                 url="https://catalogo.unict.it/search/i?SEARCH=" + user_isbn + "&sortdropdown=-&searchscope=9"
@@ -44,10 +45,10 @@ def sell(update: Update, context: CallbackContext) -> None:
                     df = get_on_sale()
                     new_row = pd.DataFrame({'ISBN':str(isbn),'Titolo':str(title), 'Autori':str(authors), 'Venditore':str(username), 'Prezzo':str(prezzo)}, index=[len(df)])
                     df = pd.concat([df, new_row])
-                    df.to_csv('data/on_sale.csv')
+                    df.to_csv(SHOP_DB_PATH)
                     new_book = pd.DataFrame({'ISBN':str(isbn),'Titolo':str(title), 'Autori':str(authors)}, index=[len(books)])
                     books = pd.concat([books, new_book])
-                    books.to_csv('data/books_db.csv')
+                    books.to_csv(BOOKS_DB_PATH)
                     context.bot.send_message(chat_id, "Il libro è stato aggiunto al database.")
                 else:
                     context.bot.send_message(chat_id, "Libro non trovato. Controlla di aver inserito correttamente l'ISBN")

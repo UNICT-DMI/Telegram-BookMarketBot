@@ -7,4 +7,4 @@ Users can also look for a book inside the database. All the books matching the r
 Lastly, users can delete one of their books from the database once it has been sold (or for any other reasons).
 
 ## Testing
-Insert your Telegram Bot Token inside the yaml file in the config folder. If you want a clean start, `on_sale.csv` and `books_db.csv` should be empty except for the first row (where the columns' names are defined), so remember to delete those records. In that way you'll have a clean database of both sellers and books. Run 'main.py' to start the bot.
+Insert your Telegram Bot Token inside the yaml file in the config folder. If you want a clean start, `on_sale.csv` and `books_db.csv` should be empty except for the first row (where the columns' names are defined), so remember to delete those records. In that way you'll have a clean database of both sellers and books. Run `main.py` to start the bot.
