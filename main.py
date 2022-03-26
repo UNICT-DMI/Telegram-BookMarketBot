@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from telegram.ext import Updater
-import logging
+import logging, yaml
 
 from module.handlers import handlers
 
 def main() -> None:
-    TOKEN = 'TOKEN'
-    updater= Updater(TOKEN, use_context=True)
+    
+    with open('config/settings.yaml.dist', 'r') as yaml_config:
+        config_map = yaml.load(yaml_config, Loader=yaml.SafeLoader)
+    
+    updater= Updater(config_map['token'], use_context=True)
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     handlers(updater)
     updater.start_polling()
