@@ -28,7 +28,7 @@ def sell(update: Update, context: CallbackContext) -> None:
                 df = get_on_sale()
                 new_row = pd.DataFrame({'ISBN':str(isbn),'Titolo':str(title), 'Autori':str(authors), 'Venditore':str(username), 'Prezzo':str(prezzo)}, index=[len(df)])
                 df = pd.concat([df, new_row])
-                df.to_csv('data.csv')
+                df.to_csv('data/on_sale.csv')
                 context.bot.send_message(chat_id, "Il libro è stato aggiunto al database.")
             else:
                 url="https://catalogo.unict.it/search/i?SEARCH=" + user_isbn + "&sortdropdown=-&searchscope=9"
@@ -44,10 +44,10 @@ def sell(update: Update, context: CallbackContext) -> None:
                     df = get_on_sale()
                     new_row = pd.DataFrame({'ISBN':str(isbn),'Titolo':str(title), 'Autori':str(authors), 'Venditore':str(username), 'Prezzo':str(prezzo)}, index=[len(df)])
                     df = pd.concat([df, new_row])
-                    df.to_csv('data.csv')
+                    df.to_csv('data/on_sale.csv')
                     new_book = pd.DataFrame({'ISBN':str(isbn),'Titolo':str(title), 'Autori':str(authors)}, index=[len(books)])
                     books = pd.concat([books, new_book])
-                    books.to_csv('books.csv')
+                    books.to_csv('data/books_db.csv')
                     context.bot.send_message(chat_id, "Il libro è stato aggiunto al database.")
                 else:
                     context.bot.send_message(chat_id, "Libro non trovato. Controlla di aver inserito correttamente l'ISBN")
