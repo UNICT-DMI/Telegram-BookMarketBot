@@ -13,6 +13,6 @@ def find_book(message: str, dataframe: DataFrame) -> Tuple:
         return(False, -1)
     
     for i in range(len(dataframe)):
-        if message.lower() in str(dataframe['ISBN'][i]).lower():
+        if message.lower() == str(dataframe['ISBN'][i]).lower():
             return(True, i)
     return(False, -1)
