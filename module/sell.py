@@ -44,7 +44,6 @@ def sell(update: Update, context: CallbackContext) -> None:
                         return
                     
                     context.bot.send_message(chat_id, "Libro non trovato. Controlla di aver inserito correttamente l'ISBN.")
-                    return
                 
                 except Exception as e:
                     print(str(e))
