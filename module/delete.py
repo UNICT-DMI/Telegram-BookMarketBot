@@ -12,13 +12,13 @@ def delete(update: Update, context: CallbackContext) -> None:
         ret = df[condition].index.tolist()
 
         if len(ret)!=0:
-            context.bot.send_message(chat_id, "Quale libro vuoi eliminare?\n")
-            res=""
+            context.bot.send_message(chat_id, "Hai i seguenti libri in vendita:\n")
             for i in range(len(ret)):
-                res+='n°: ' + str(i+1) + '\n' + 'ISBN: ' +str(df.iloc[ret[i]][0]) + '\n' + 'Titolo: ' +str(df.iloc[ret[i]][1]) + '\n' + 'Autori: '+str(df.iloc[ret[i]][2]) + '\n' + 'Venditore: ' + str(df.iloc[ret[i]][3]) + '\n' + 'Prezzo: ' + str(df.iloc[ret[i]][4]) + ' €\n\n' 
+                res = 'n°: ' + str(i+1) + '\n' + 'ISBN: ' +str(df.iloc[ret[i]][0]) + '\n' + 'Titolo: ' +str(df.iloc[ret[i]][1]) + '\n' + 'Autori: '+str(df.iloc[ret[i]][2]) + '\n' + 'Venditore: ' + str(df.iloc[ret[i]][3]) + '\n' + 'Prezzo: ' + str(df.iloc[ret[i]][4]) + ' €\n'
+                context.bot.send_message(chat_id, res +'\n') 
             keyboard = [ [InlineKeyboardButton(str(i+1), callback_data=(ret[i]))] for i in range(len(ret)) ]
             reply_markup = InlineKeyboardMarkup(keyboard)
-            update.message.reply_text(res, reply_markup=reply_markup)
+            update.message.reply_text('Quale libro vuoi eliminare?', reply_markup=reply_markup)
         else:
             context.bot.send_message(chat_id, "Non hai nessun libro in vendita")
     else:

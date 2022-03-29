@@ -11,10 +11,10 @@ def search(update: Update, context: CallbackContext) -> None:
         df = get_on_sale()
         found, v = find_book(message, df)
         if found:
-            res='La ricerca ha prodotto i seguenti risultati:\n\n'
+            context.bot.send_message(chat_id, 'La ricerca ha prodotto i seguenti risultati:\n')
             for i in range(len(v)):
-                res+='ISBN: ' +str(df.iloc[v[i]][0]) + '\n' + 'Titolo: ' +str(df.iloc[v[i]][1]) + '\n' + 'Autori: '+str(df.iloc[v[i]][2]) + '\n' + 'Venditore: ' + str(df.iloc[v[i]][3]) + '\n' + 'Prezzo: ' + str(df.iloc[v[i]][4]) + ' €\n\n'
-            context.bot.send_message(chat_id, res)
+                res = 'n°: ' + str(i+1) + '\n' + 'ISBN: ' +str(df.iloc[v[i]][0]) + '\n' + 'Titolo: ' +str(df.iloc[v[i]][1]) + '\n' + 'Autori: '+str(df.iloc[v[i]][2]) + '\n' + 'Venditore: ' + str(df.iloc[v[i]][3]) + '\n' + 'Prezzo: ' + str(df.iloc[v[i]][4]) + ' €\n'
+                context.bot.send_message(chat_id, res)
         else:
             context.bot.send_message(chat_id, "Non ho trovato nulla.")
     else:
