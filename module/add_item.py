@@ -1,9 +1,9 @@
-import pandas as pd
-from module.get_on_sale import get_on_sale
-from module.shared import SHOP_DB_PATH
+import sqlite3
 
-def add_item(isbn: str, title: str, authors:str, username:str, price:str) -> None:
-    df = get_on_sale()
-    new_row = pd.DataFrame({'ISBN':str(isbn),'Titolo':str(title), 'Autori':str(authors), 'Venditore':str(username), 'Prezzo':str(price)}, index=[len(df)])
-    df = pd.concat([df, new_row])
-    df.to_csv(SHOP_DB_PATH)
+def add_item(conn: sqlite3.Connection, isbn: str, title: str, authors:str, username:str, price:str) -> None:
+    item = (isbn, title, authors, username, price)
+    sql = ''' INSERT INTO Market(ISBN, Titolo, Autori, Venditore, Prezzo)
+              VALUES(?,?,?,?,?) '''
+    cur = conn.cursor()
+    cur.execute(sql, item)
+    conn.commit()

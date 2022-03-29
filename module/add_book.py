@@ -1,10 +1,9 @@
-import pandas as pd
-from module.get_books import get_books
-from module.shared import BOOKS_DB_PATH
+import sqlite3
 
-def add_book(isbn: str, title: str, authors:str) -> None:
-    books = get_books()
-    new_book = pd.DataFrame({'ISBN':str(isbn),'Titolo':str(title), 'Autori':str(authors)}, index=[len(books)])
-    books = pd.concat([books, new_book])
-    books.to_csv(BOOKS_DB_PATH)
-    
+def add_book(conn: sqlite3.Connection, isbn: str, title: str, authors:str) -> None:
+    book = (isbn, title, authors)
+    sql = ''' INSERT INTO Books(ISBN, Titolo, Autori)
+              VALUES(?,?,?) '''
+    cur = conn.cursor()
+    cur.execute(sql, book)
+    conn.commit()

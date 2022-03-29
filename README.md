@@ -2,14 +2,20 @@
 A Telegram Bot for UNICT students to sell and buy second hand university books
 
 ## How does it work?
-Users can sell their books, which then will be inserted inside a local database (the `on_sale.csv` file). If the info about the sold book are not present inside the `books_db.csv` file, the bot will get them from the UNICT Library Catalogue and then insert them inside the book database. 
-Users can also look for a book inside the database. All the books matching the research will be displayed to the user, along with the usernames of the people that sells those books.
-Lastly, users can delete one of their books from the database once it has been sold (or for any other reasons).
+The bot relies on a local database, in which two main tables are stored: `Books` and `Market`. Users can sell their books using the books' ISBN code.
+
+If the book with that ISBN is present inside the `Books` table, the info about that book (like the book's name and authors) will be taken from there and then the on sale item will be added to the `Market` table, along with other information like the seller's username and the selling price of the book.
+
+If the inserted ISBN is not present inside the local database, the bot will get the data from the UNICT Library Catalogue and then insert the retrieved info inside the `Books` table and then will add the new on sale item to the `Market` one.
+
+Users that want to buy second hand books can look for them inside the market by doing a research, inserting the book's ISBN, title or author name as keyword. All the books matching the query will be displayed to the user, along with the usernames of their owners. In this way, people can contact sellers to make a deal in private.
+
+Lastly, users can delete their on sale items from the database once they've been sold (or for any other reasons). It is of the seller's interest to delete their items once they are not on sale anymore: infact, people could contact them to buy a book that is present on the database even though they don't possess it or don't want to sell it.
 
 ## Testing
 To test the bot follow these steps:
 - Clone this repository
-- Create `config/settings.yaml`
+- Create `config/settings.yaml` (or rename the existing `config/settings.yaml.dist` file into `config/settings.yaml`)
 - Insert your Telegram Bot Token inside the file
-- For a clean start, `on_sale.csv` and `books_db.csv` should be empty except for the first row (where the columns' names are defined), so remember to delete those records. In that way you'll have a clean database of both sellers and books
+- Rename `data/bookmarket.db.dist` into `data/bookmarket.db`
 - Run `main.py` to start the bot
