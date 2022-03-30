@@ -13,3 +13,7 @@ To test the bot follow these steps:
 - Insert your Telegram Bot Token inside the file
 - For a clean start, `on_sale.csv` and `books_db.csv` should be empty except for the first row (where the columns' names are defined), so remember to delete those records. In that way you'll have a clean database of both sellers and books
 - Run `main.py` to start the bot
+
+## Credits
+
+[ellegint](https://github.com/ellegint)
