@@ -1,11 +1,20 @@
 from telegram import Update
 from telegram.ext import CallbackContext
+import bs4
 from module.add_item import add_item
 from module.add_book import add_book
 from module.find import find
 from module.book_in_unict import book_in_unict
 from module.create_connection import create_connection
 from module.shared import DB_PATH, error_message
+
+
+def _get_isbn_from_website(soup: bs4.BeautifulSoup) -> str:
+    idx = len(str(soup.findAll("td")).split("bibInfoData")) - 1
+    return str(soup.findAll("td")) \
+        .split("bibInfoData")[idx] \
+        .split("\n")[1] \
+        .split("<")[0]
 
 
 def sell(update: Update, context: CallbackContext) -> None:
@@ -49,7 +58,7 @@ def sell(update: Update, context: CallbackContext) -> None:
 
         found, soup = book_in_unict(user_isbn)
         if found:
-            isbn = (str(soup.findAll("td")).split("bibInfoData")[len(str(soup.findAll("td")).split("bibInfoData")) - 1].split("\n")[1].split("<")[0])
+            isbn = _get_isbn_from_website(soup)
             title = soup.find("strong").text.split("/")[0]
             authors = soup.find("strong").text.split("/")[1]
             title_and_authors = soup.find("strong").text

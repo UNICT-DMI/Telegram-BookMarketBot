@@ -22,9 +22,7 @@ def search(update: Update, context: CallbackContext) -> None:
     rows = find(message, conn, "Market")
     conn.close()
     if rows:
-        context.bot.send_message(
-            chat_id, "La ricerca ha prodotto i seguenti risultati:\n"
-        )
+        context.bot.send_message(chat_id, "La ricerca ha prodotto i seguenti risultati:\n")
         send_results(rows, chat_id, context)
     else:
         context.bot.send_message(chat_id, "Non ho trovato nulla.")
