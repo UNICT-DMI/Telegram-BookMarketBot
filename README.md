@@ -21,7 +21,7 @@ services:
     image: ghcr.io/unict-dmi/bookmarket-bot:master
     volumes:
       - <your-settings.yaml>:/app/config/settings.yaml
-	    - <your-bookmarket.db>:/app/data/bookmarket.db
+      - <your-bookmarket.db>:/app/data/bookmarket.db
     restart: unless-stopped
 ```
 
