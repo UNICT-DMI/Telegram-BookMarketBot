@@ -1,3 +1,5 @@
-#Databases paths
-SHOP_DB_PATH = 'data/on_sale.csv'
-BOOKS_DB_PATH = 'data/books_db.csv'
+# Database path
+DB_PATH = "data/bookmarket.db"
+
+# Database connection error message
+error_message = "Si è verificato un problema nella lettura del database."
