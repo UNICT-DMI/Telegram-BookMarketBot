@@ -19,3 +19,7 @@ To test the bot follow these steps:
 - Insert your Telegram Bot Token inside the file
 - Copy `data/bookmarket.db.dist` and rename it into `data/bookmarket.db`
 - Run `main.py` to start the bot
+
+## Credits
+
+[ellegint](https://github.com/ellegint)
