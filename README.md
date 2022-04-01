@@ -12,6 +12,19 @@ Users that want to buy second hand books can look for them inside the market by 
 
 Lastly, users can delete their on sale items from the database once they've been sold (or for any other reasons). It is of the seller's interest to delete their items once they are not on sale anymore: infact, people could contact them to buy a book that is present on the database even though they don't possess it or don't want to sell it.
 
+## docker-compose
+```yaml
+version: '2'
+services:
+  dmifaq-bot:
+    container_name: dmifaq-bot
+    image: ghcr.io/unict-dmi/bookmarket-bot:master
+    volumes:
+      - <your-settings.yaml>:/app/config/settings.yaml
+      - <your-bookmarket.db>:/app/data/bookmarket.db
+    restart: unless-stopped
+```
+
 ## Testing
 To test the bot follow these steps:
 - Clone this repository
