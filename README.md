@@ -15,7 +15,7 @@ Lastly, users can delete their on sale items from the database once they've been
 ## Testing
 To test the bot follow these steps:
 - Clone this repository
-- Create `config/settings.yaml` (or rename the existing `config/settings.yaml.dist` file into `config/settings.yaml`)
+- Create `config/settings.yaml` (or copy the existing `config/settings.yaml.dist` and rename it into `config/settings.yaml`)
 - Insert your Telegram Bot Token inside the file
-- Rename `data/bookmarket.db.dist` into `data/bookmarket.db`
+- Copy `data/bookmarket.db.dist` and rename it into `data/bookmarket.db`
 - Run `main.py` to start the bot

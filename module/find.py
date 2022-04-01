@@ -1,6 +1,7 @@
+from typing import List
 import sqlite3
 
-def find(txt: str, conn:sqlite3.Connection, s:str):
+def find(txt: str, conn: sqlite3.Connection, s: str) -> List:
     cur = conn.cursor()
     if s == 'Books':
         cur.execute("SELECT * FROM Books WHERE ISBN=?", (txt,))
