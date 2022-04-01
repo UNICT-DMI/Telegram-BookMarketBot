@@ -1,6 +1,7 @@
 from telegram import Update
 from telegram.ext import CallbackContext
 
+
 def help(update: Update, context: CallbackContext) -> None:
     chat_id = update.effective_chat.id
     vendo = "/vendi <ISBN> <Prezzo>: Aggiungi un libro alla lista degli oggetti in vendita. Inserisci l'ISBN del tuo libro e il prezzo con il quale lo vorresti vendere.\nEs: /vendi 9788890234484 17.50\n\n"
