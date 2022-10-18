@@ -7,7 +7,7 @@ from module.shared import DB_PATH, error_message
 from module.send_results import send_results
 
 
-def get_user_books(context: CallbackContext, chat_id: int) -> List:
+def get_user_books(context: CallbackContext, chat_id: int) -> List[tuple]:
     conn = create_connection(DB_PATH)
     if not conn:
         context.bot.send_message(chat_id, error_message)
@@ -27,7 +27,7 @@ def get_user_books(context: CallbackContext, chat_id: int) -> List:
     return rows
 
 
-def mybooks(update: Update, context: CallbackContext) -> List:
+def my_books(update: Update, context: CallbackContext) -> None:
     chat_id = update.effective_chat.id
     message = update.message.text
     if message != "/libri":
