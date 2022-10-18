@@ -4,6 +4,7 @@ from module.help import help
 from module.search import search
 from module.sell import sell
 from module.delete import delete
+from module.mybooks import mybooks
 from module.button import button
 
 
@@ -14,4 +15,5 @@ def handlers(updater: Updater) -> None:
     dispatcher.add_handler(CommandHandler("vendi", sell))
     dispatcher.add_handler(CommandHandler("cerca", search))
     dispatcher.add_handler(CommandHandler("elimina", delete))
+    dispatcher.add_handler(CommandHandler("libri", mybooks))
     dispatcher.add_handler(CallbackQueryHandler(button))
