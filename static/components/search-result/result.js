@@ -9,9 +9,9 @@ class BookResult extends HTMLElement {
     }
 
     setup() {
-        // since the "BookResult" needs to be rendered
-        // on the fly, it's not possible to declare
-        // them in the index.html file, which is usually preferred
+        // since the "BookResult" elements need to be rendered
+        // on the fly, it's not possible to declare them in
+        // the index.html file, which is usually preferred
         this.cover = new Icon({src: this.defaultCover, size: window.innerWidth > 800 ? 200 : 100});
         this.info = document.createElement('book-info');
         this.base = document.createElement('book-base');
