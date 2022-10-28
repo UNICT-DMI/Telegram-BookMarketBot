@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Page title -->
+        <title>Mercatino Libri UNICT</title>
+
+        <!-- Telegram WebApp -->
+        <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+        <!-- Meta tag for mobile devices -->
+        <meta name = "viewport" content = "width=device-width, initial-scale=1" />
+
+        <!-- Loading components -->
+        <!-- icon container -->
+        <script defer src = "static/components/icon-container/icon.js"></script>
+        <link rel = "stylesheet" href = "static/components/icon-container/icon.css">
+        <!-- app container -->
+        <link rel = "stylesheet" href = "static/components/app-container/container.css">
+        <!-- app header -->
+        <script defer src = "static/components/app-header/header.js"></script>
+        <link rel = "stylesheet" href = "static/components/app-header/header.css">
+        <!-- search bar -->
+        <script defer src = "static/components/search-bar/search.js"></script>
+        <link rel = "stylesheet" href = "static/components/search-bar/search.css">
+        <!-- search results -->
+        <script defer src = "static/components/search-results/results.js"></script>
+        <link rel = "stylesheet" href = "static/components/search-results/results.css">
+        <!-- search result -->
+        <script defer src = "static/components/search-result/result.js"></script>
+        <link rel = "stylesheet" href = "static/components/search-result/result.css">
+        <!-- other scripts/styles -->
+        <script src = "static/utils/colors.js"></script>
+        <link rel = "stylesheet" href = "static/res/fonts/fonts.css">
+        <script src = "static/utils/api.js"></script>
+    </head>
+    <body>
+        <app-container>
+            <!-- app logo -->
+            <!-- <app-header>
+                <icon-container src = "res/logo.png" size = "100"></icon-container>
+                <header-text></header-text>
+            </app-header> -->
+
+            <!-- search bar -->
+            <search-bar>
+                <icon-container name = "search" size = "36" color = "000000"></icon-container>
+                <input placeholder = "Search.." id = "search-input" autofocus>
+            </search-bar>
+
+            <!-- search results -->
+            <search-results></search-results>
+        </app-container>
+
+        <script src = "static/main.js"></script>
+    </body>
+</html>
