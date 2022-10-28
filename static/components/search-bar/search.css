@@ -5,6 +5,7 @@ search-bar {
 
 search-bar input {
     flex: 1;
+    width: 80vw;
     margin-left: 15px;
     font-size: 28px;
     
