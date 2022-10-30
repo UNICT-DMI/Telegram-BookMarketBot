@@ -1,5 +1,7 @@
 beautifulsoup4==4.10.0
 PyYAML==6.0
 requests==2.27.1
-python-telegram-bot==13.8.1
 flask
+telegram==0.0.1
+python-telegram-bot==13.8.1
+

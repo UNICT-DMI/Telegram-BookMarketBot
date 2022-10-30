@@ -1,0 +1,25 @@
+search-bar {
+    display: flex;
+    align-items: center;
+}
+
+search-bar input {
+    flex: 1;
+    width: 80vw;
+    margin-left: 15px;
+    font-size: 28px;
+    
+    outline: none;
+    border: none;
+    background: transparent;
+
+    font-family: 'Open Sans';
+    color: var(--tg-theme-text-color);
+}
+
+
+@media (max-width: 800px) {
+    search-bar icon-container {
+        display: none;
+    }
+}
