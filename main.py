@@ -2,6 +2,7 @@
 from telegram.ext import Updater
 import logging, yaml
 from module.handlers import handlers
+from app import app
 
 
 def main() -> None:
@@ -10,7 +11,9 @@ def main() -> None:
     updater= Updater(config_map['token'], use_context=True)
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     handlers(updater)
+
     updater.start_polling()
+    app.run()
 
 
 if __name__ == '__main__':

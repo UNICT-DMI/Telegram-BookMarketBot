@@ -1,0 +1,10 @@
+body {
+    background: var(--tg-theme-bg-color);
+}
+
+app-container {
+    display: flex;
+    flex-direction: column;
+    
+    padding: 15px;
+}
