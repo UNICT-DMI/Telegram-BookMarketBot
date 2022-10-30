@@ -16,7 +16,7 @@ class Colors {
         // Get the color used for a particular category
         // if the website is running via Telegram WebApps,
         // the result will match user's chosen theme.
-        let color = window.Telegram.WebApp.themeParams[key] || this.defaultSettings[key];
+        const color = window.Telegram.WebApp.themeParams[key] || this.defaultSettings[key];
         // removing the inital hashtag
         return color.slice(1, undefined);
     }
