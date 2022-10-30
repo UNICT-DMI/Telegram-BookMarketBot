@@ -16,7 +16,7 @@ Lastly, users can delete their on sale items from the database once they've been
 ```yaml
 version: '2'
 services:
-  dmifaq-bot:
+  bookmarket-bot:
     container_name: bookmarket-bot
     image: ghcr.io/unict-dmi/bookmarket-bot:master
     volumes:
