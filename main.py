@@ -13,7 +13,7 @@ def main() -> None:
     handlers(updater)
 
     updater.start_polling()
-    app.run()
+    app.run(port=5000, host="0.0.0.0")
 
 
 if __name__ == '__main__':
