@@ -1,7 +1,7 @@
 # —— Modules
 from flask import Flask, request, render_template
 from module.create_connection import create_connection
-from module.shared import DB_PATH, error_message
+from module.shared import DB_PATH, DB_ERROR
 from module.find import find
 import json
 
@@ -35,7 +35,7 @@ def search():
     conn = create_connection(DB_PATH)
     if not conn:
         # returning error message
-        return respond({'message': error_message}, success = False)
+        return respond({'message': DB_ERROR}, success = False)
     
     # querying the database
     rows = find(query, conn, "Market")

@@ -12,10 +12,11 @@ def send_results(rows: List, chat_id: int, context: CallbackContext) -> None:
     if res != "":
         context.bot.send_message(chat_id, res)
 
+
 def get_book_info(isbn: str, title: str, authors: str) -> str:
-    s = "ISBN: " + isbn + "\n" + "Titolo: " + title + "\n" + "Autori: " + authors + "\n"
-    return s
+    return f"Il libro è:\nISBN: {isbn} \nTitolo: {title}\nAutori: {authors}\n"
+
 
 def get_item_info(isbn: str, title: str, authors: str, seller: str, price: str) -> str:
-    s = "ISBN: " + isbn + "\n" + "Titolo: " + title + "\n" + "Autori: " + authors + "\n" + "Venditore: " + seller + "\n" + "Prezzo: " + price + " €\n"
-    return s
+    return f"ISBN: {isbn} \nTitolo: {title}\nAutori: {authors}\nVenditore: {seller}\nPrezzo: {price} €\n"
+    
