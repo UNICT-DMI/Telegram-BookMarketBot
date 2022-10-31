@@ -58,7 +58,6 @@ def sell(update: Update, context: CallbackContext) -> None:
             return
 
         rows = find(user_isbn, conn, "Books")
-        conn.close()
         if rows:
             isbn = rows[0][0]
             title = rows[0][1]
@@ -74,13 +73,16 @@ def sell(update: Update, context: CallbackContext) -> None:
             title = soup.find("strong").text.split("/")[0]
             authors = soup.find("strong").text.split("/")[1]
             context.bot.send_message(chat_id, 'Il libro è:\n' + get_book_info(isbn, title, authors))
-            add_book(isbn, title, authors)
+            if not find(isbn, conn, 'Books'):
+                add_book(isbn, title, authors)
             add_item(isbn, title, authors, username, price)
             context.bot.send_message(chat_id, "Il libro è stato messo in vendita.")
             return
-
-        context.bot.send_message(chat_id, "Libro non trovato. Controlla di aver inserito correttamente l'ISBN.")
+        
+        conn.close()
+        context.bot.send_message(chat_id, "Libro non trovato nel database. Controlla di aver inserito correttamente l'ISBN. Se l'ISBN è corretto, utilizza il comando /richiedi per fare una richiesta di inserimento manuale.")
 
     except Exception as e:
         print(str(e))
         context.bot.send_message(chat_id, "Prezzo non valido.")
+        

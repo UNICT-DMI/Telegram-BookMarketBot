@@ -1,5 +1,4 @@
 from typing import List
-import sqlite3
 from telegram import Update
 from telegram.ext import CallbackContext
 from module.create_connection import create_connection

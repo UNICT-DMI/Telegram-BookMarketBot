@@ -12,6 +12,6 @@ def delete(update: Update, context: CallbackContext) -> None:
     
     rows = get_user_books(context, chat_id)
     if rows:
-        keyboard = [[InlineKeyboardButton(str(i + 1), callback_data=(rows[i][0]))] for i in range(len(rows))]
+        keyboard = [[InlineKeyboardButton(str(i + 1), callback_data=('delete;'+str(rows[i][0])))] for i in range(len(rows))]
         reply_markup = InlineKeyboardMarkup(keyboard)
         update.message.reply_text("Quale libro vuoi eliminare?", reply_markup=reply_markup)
