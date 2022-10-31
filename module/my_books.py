@@ -15,7 +15,7 @@ def get_user_books(context: CallbackContext, chat_id: int) -> List[tuple]:
 
     user = "@" + str(context.bot.get_chat(chat_id)["username"])
     cur = conn.cursor()
-    cur.execute("SELECT rowid, * FROM Market WHERE Venditore=?", (user,))
+    cur.execute("SELECT rowid, * FROM Market WHERE Seller=?", (user,))
     rows = cur.fetchall()
     conn.close()
 
