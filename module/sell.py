@@ -6,6 +6,7 @@ from module.add_book import add_book
 from module.find import find
 from module.book_in_unict import book_in_unict
 from module.create_connection import create_connection
+from module.send_results import get_book_info
 from module.shared import DB_PATH, error_message
 
 
@@ -50,10 +51,9 @@ def sell(update: Update, context: CallbackContext) -> None:
             isbn = rows[0][0]
             title = rows[0][1]
             authors = rows[0][2]
-            title_and_authors = title + "di" + authors
-            context.bot.send_message(chat_id, 'Il libro è: \nTitolo: "' + title_and_authors + '"')
+            context.bot.send_message(chat_id, 'Il libro è:\n' + get_book_info(isbn, title, authors))
             add_item(isbn, title, authors, username, price)
-            context.bot.send_message(chat_id, "Il libro è stato aggiunto al database.")
+            context.bot.send_message(chat_id, "Il libro è stato messo in vendita.")
             return
 
         found, soup = book_in_unict(user_isbn)
@@ -61,11 +61,10 @@ def sell(update: Update, context: CallbackContext) -> None:
             isbn = _get_isbn_from_website(soup)
             title = soup.find("strong").text.split("/")[0]
             authors = soup.find("strong").text.split("/")[1]
-            title_and_authors = soup.find("strong").text
-            context.bot.send_message(chat_id, 'Il libro è: \nTitolo: "' + title_and_authors + '"')
+            context.bot.send_message(chat_id, 'Il libro è:\n' + get_book_info(isbn, title, authors))
             add_book(isbn, title, authors)
             add_item(isbn, title, authors, username, price)
-            context.bot.send_message(chat_id, "Il libro è stato aggiunto al database.")
+            context.bot.send_message(chat_id, "Il libro è stato messo in vendita.")
             return
 
         context.bot.send_message(chat_id, "Libro non trovato. Controlla di aver inserito correttamente l'ISBN.")
