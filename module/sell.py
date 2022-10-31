@@ -1,6 +1,7 @@
+import bs4
+import re
 from telegram import Update
 from telegram.ext import CallbackContext
-import bs4
 from module.add_item import add_item
 from module.add_book import add_book
 from module.find import find
@@ -12,10 +13,21 @@ from module.shared import DB_PATH, error_message
 
 def _get_isbn_from_website(soup: bs4.BeautifulSoup) -> str:
     idx = len(str(soup.findAll("td")).split("bibInfoData")) - 1
-    return str(soup.findAll("td")) \
+    isbn = str(soup.findAll("td")) \
         .split("bibInfoData")[idx] \
         .split("\n")[1] \
         .split("<")[0]
+    isbn = isbn.replace('-','')
+    if len(isbn) > 13:
+        p1 = re.search('978', isbn)
+        p2 = re.search('979', isbn)
+        if p1 is not None:
+            s = p1.span()[0]
+            isbn = isbn[s:s+13]
+        elif p2 is not None:
+            s = p2.span()[0]
+            isbn = isbn[s:s+13]
+    return isbn
 
 
 def sell(update: Update, context: CallbackContext) -> None:
