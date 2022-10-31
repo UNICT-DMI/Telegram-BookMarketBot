@@ -27,8 +27,7 @@ def button(update: Update, context: CallbackContext) -> None:
         conn.close()
     
     if query.data.split(';')[0] == 'new_request':
-        vote = query.data.split(';')[1]
-        row_id = query.data.split(';')[2]
+        _, vote, row_id = query.data.split(';')
         
         conn = create_connection(DB_PATH)
         if not conn:
