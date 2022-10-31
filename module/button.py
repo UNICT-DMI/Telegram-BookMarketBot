@@ -40,14 +40,8 @@ def button(update: Update, context: CallbackContext) -> None:
         
         if rows:
 
-            chat_id = rows[0][1]
-
             if vote == 'Y':
-                isbn = rows[0][2]
-                title = rows[0][3]
-                authors = rows[0][4]
-                username = rows[0][5]
-                price = rows[0][6]
+                _, chat_id, isbn, title, authors, username, price = rows[0]
                 query.edit_message_text(text=f"Richiesta accettata.")
                 add_book(isbn, title, authors)
                 add_item(isbn, title, authors, username, price)
@@ -56,6 +50,7 @@ def button(update: Update, context: CallbackContext) -> None:
                 context.bot.send_message(chat_id, "Il libro è stato messo in vendita.")
             
             if vote == 'N':
+                chat_id = rows[0][1]
                 query.edit_message_text(text=f"Richiesta rifiutata.")
                 delete_request(context, chat_id, row_id)
                 context.bot.send_message(chat_id, "La tua richiesta è stata rifiutata. Controlla se i dati inseriti sono corretti e riprova.")

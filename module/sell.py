@@ -59,9 +59,7 @@ def sell(update: Update, context: CallbackContext) -> None:
 
         rows = find(user_isbn, conn, "Books")
         if rows:
-            isbn = rows[0][0]
-            title = rows[0][1]
-            authors = rows[0][2]
+            isbn, title, authors = rows[0]
             context.bot.send_message(chat_id, 'Il libro è:\n' + get_book_info(isbn, title, authors))
             add_item(isbn, title, authors, username, price)
             context.bot.send_message(chat_id, "Il libro è stato messo in vendita.")
@@ -85,4 +83,3 @@ def sell(update: Update, context: CallbackContext) -> None:
     except Exception as e:
         print(str(e))
         context.bot.send_message(chat_id, "Prezzo non valido.")
-        

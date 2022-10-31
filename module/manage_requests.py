@@ -47,11 +47,7 @@ def send_request(context: CallbackContext, row_id: int) -> None:
     rows = cur.fetchall()
     conn.close()
     
-    isbn = rows[0][0]
-    title = rows[0][1]
-    authors = rows[0][2]
-    username = rows[0][3]
-    price = rows[0][4]
+    isbn, title, authors, username, price = rows[0]
     context.bot.send_message(group_id, "New Pending Request:\n"+isbn+"\n"+title+"\n"+authors+"\n"+username+"\n"+price+"\n", reply_markup=reply_markup)
 
 def update_similar_requests(context: CallbackContext, isbn: str) -> None:
@@ -68,21 +64,12 @@ def update_similar_requests(context: CallbackContext, isbn: str) -> None:
     rows = cur.fetchall()
     
     book_info = find(isbn, conn, 'Books')
-    title = book_info[0][1]
-    authors = book_info[0][2]
+    _, title, authors = book_info[0]
     
     for i in range(len(rows)):
-        row_id = rows[i][0]
-        chat_id = rows[i][1]
-        username = rows[i][2]
-        price = rows[i][3]
-    
+        row_id, chat_id, username, price = rows[i]
         add_item(isbn, title, authors, username, price)
         delete_request(row_id)
         context.bot.send_message(chat_id, "Il libro è stato messo in vendita.")
     
     conn.close()
-
-    
-    
-    

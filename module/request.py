@@ -48,10 +48,9 @@ def request(update: Update, context: CallbackContext) -> None:
         rows = find(user_isbn, conn, "Books")
         conn.close()
         if rows:
-            title = rows[0][1]
-            authors = rows[0][2]
-            context.bot.send_message(chat_id, 'Il libro esiste già nel database locale:\n' + get_book_info(user_isbn, title, authors))
-            add_item(user_isbn, title, authors, username, price)
+            isbn, title, authors = rows[0]
+            context.bot.send_message(chat_id, 'Il libro esiste già nel database locale:\n' + get_book_info(isbn, title, authors))
+            add_item(isbn, title, authors, username, price)
             context.bot.send_message(chat_id, "Il libro è stato messo in vendita.")
             return
 
@@ -87,4 +86,3 @@ def request(update: Update, context: CallbackContext) -> None:
     except Exception as e:
         print(str(e))
         context.bot.send_message(chat_id, "Prezzo non valido.")
-        
