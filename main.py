@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-from telegram.ext import Updater
-import logging, yaml
-from module.handlers import handlers
+import logging
+import yaml
 from app import app
+from telegram.ext import Updater
+from module.handlers import handlers
 from module.shared import YAML_PATH
 
 
 def main() -> None:
-    with open(YAML_PATH, 'r') as yaml_config:
+    with open(YAML_PATH, 'r', encoding="utf-8") as yaml_config:
         config_map = yaml.load(yaml_config, Loader=yaml.SafeLoader)
     updater= Updater(config_map['token'], use_context=True)
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)

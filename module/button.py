@@ -3,7 +3,7 @@ from telegram.ext import CallbackContext
 from module.add_book import add_book
 from module.add_item import add_item
 from module.create_connection import connect_and_execute
-from module.shared import *
+from module.shared import NEW_REQUEST,ADMIN_REQUEST_ACCEPTED,ADMIN_REQUEST_DECLINED,USER_REQUEST_ACCEPTED,USER_REQUEST_DECLINED,CASCADE_REQUEST,NO,YES,SELECT,DELETE,DELETING,DELETED
 from module.manage_requests import delete_request, update_similar_requests
 
 
@@ -18,12 +18,12 @@ def button(update: Update, context: CallbackContext) -> None:
         connect_and_execute(context, chat_id, sql, (int(q),), DELETE)
         query.edit_message_text(text = DELETING)
         context.bot.send_message(chat_id, DELETED)
-    
+
     if operation == NEW_REQUEST:
         _, vote, row_id = query.data.split(';')
         sql = "SELECT rowid, * FROM Requests WHERE rowid=?"
         rows = connect_and_execute(context, chat_id, sql, (int(row_id),), SELECT)
-        
+
         if rows:
 
             if vote == YES:
@@ -34,13 +34,13 @@ def button(update: Update, context: CallbackContext) -> None:
                 delete_request(context, int(row_id))
                 update_similar_requests(context, isbn)
                 context.bot.send_message(chat_id, USER_REQUEST_ACCEPTED)
-            
+
             if vote == NO:
                 chat_id = rows[0][1]
                 query.edit_message_text(text = ADMIN_REQUEST_DECLINED)
                 delete_request(context, int(row_id))
                 context.bot.send_message(chat_id, USER_REQUEST_DECLINED)
-        
+
         else:
-            if vote == YES or vote == NO:
+            if vote in [YES, NO]:
                 query.edit_message_text(text = CASCADE_REQUEST)

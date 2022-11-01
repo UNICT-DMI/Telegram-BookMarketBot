@@ -1,12 +1,13 @@
-from typing import List
+from typing import List, Optional
 from telegram import Update
 from telegram.ext import CallbackContext
 from module.create_connection import connect_and_execute, create_connection
-from module.shared import *
+from module.shared import DB_PATH,DB_ERROR,MY_BOOKS_USAGE,SELECT,LIST_BOOKS,NO_BOOKS
 from module.send_results import send_results
 
 
-def get_user_books(context: CallbackContext, chat_id: int) -> List[tuple]:
+# pylint: disable=inconsistent-return-statements
+def get_user_books(context: CallbackContext, chat_id: int) -> Optional[List[tuple]]:
     conn = create_connection(DB_PATH)
     if not conn:
         context.bot.send_message(chat_id, DB_ERROR)

@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext import CallbackContext
 
-
+# pylint: disable=redefined-builtin
 def help(update: Update, context: CallbackContext) -> None:
     chat_id = update.effective_chat.id
     sell = "/vendi <ISBN> <Prezzo>\nAggiungi un libro alla lista degli oggetti in vendita. Inserisci l'ISBN del tuo libro e il prezzo con il quale lo vorresti vendere.\nEs: /vendi 9788891296566 5.50\n\n"

@@ -13,9 +13,9 @@ def find(context: CallbackContext, chat_id: int, txt: str, mode: str) -> Union[i
         q = "%" + txt + "%"
         query = "SELECT rowid, * FROM Market WHERE Title LIKE ? OR ISBN Like ? OR Authors LIKE ?"
         params = (q, q, q,)
-        
+
     return connect_and_execute(context, chat_id, query, params, SELECT)
-    
+
 
 def app_find(txt: str, conn: sqlite3.Connection, s: str) -> list[tuple]:
     cur = conn.cursor()

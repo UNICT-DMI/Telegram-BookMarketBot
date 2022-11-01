@@ -4,6 +4,7 @@ from telegram.ext import CallbackContext
 
 def send_results(rows: List, chat_id: int, context: CallbackContext) -> None:
     res = ""
+    # pylint: disable=consider-using-enumerate
     for i in range(len(rows)):
         res += ("n°: " + str(i + 1) + "\n" + get_item_info(rows[i][1], rows[i][2], rows[i][3], rows[i][4], rows[i][5]) + "\n")
         if (i + 1) % 3 == 0:
