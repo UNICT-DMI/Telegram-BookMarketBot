@@ -15,7 +15,7 @@ ISBN_ERROR = "ISBN non valido. Deve essere un numero di 10 o di 13 cifre."
 
 
 # Command usage
-REQUEST_USAGE = "Utilizzo comando: /richiedi <ISBN>; <Prezzo>; <Titolo>; <Autori>\nNota bene: ogni campo deve essere separato dal carattere ';' seguito da uno spazio."
+REQUEST_USAGE = "Utilizzo comando: /richiedi <ISBN>; <Prezzo>; <Titolo>; <Autori>\nNota bene: ogni campo deve essere separato dal carattere ';' seguito da uno spazio. \n\nEs: /richiedi 9788864201795; 4.08; One Piece 1; Eiichiro Oda"
 
 DELETE_USAGE = "Utilizzo comando: /elimina"
 
