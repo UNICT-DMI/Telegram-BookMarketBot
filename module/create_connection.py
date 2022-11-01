@@ -14,7 +14,7 @@ def create_connection(db_file: str) -> sqlite3.Connection:
 
 
 # pylint: disable=inconsistent-return-statements
-def connect_and_execute(context: CallbackContext, chat_id: int, query: str, params: tuple, operation: str) -> Optional[Unionint, list]]:
+def connect_and_execute(context: CallbackContext, chat_id: int, query: str, params: tuple, operation: str) -> Optional[Union[int, list]]:
     conn = create_connection(DB_PATH)
     if not conn:
         context.bot.send_message(chat_id, DB_ERROR)
