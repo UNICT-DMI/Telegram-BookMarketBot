@@ -1,6 +1,6 @@
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 from module.start import start
-from module.help import help
+from module.help import help # pylint: disable=redefined-builtin
 from module.search import search
 from module.sell import sell
 from module.delete import delete

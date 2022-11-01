@@ -1,5 +1,5 @@
 # —— Modules
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template  #pylint: disable=import-error
 from module.create_connection import create_connection
 from module.shared import DB_PATH, error_message
 from module.find import find
@@ -36,7 +36,7 @@ def search():
     if not conn:
         # returning error message
         return respond({'message': error_message}, success = False)
-    
+
     # querying the database
     rows = find(query, conn, "Market")
     # closing connection

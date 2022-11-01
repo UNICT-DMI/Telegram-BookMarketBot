@@ -11,8 +11,8 @@ def button(update: Update, context: CallbackContext) -> None:
     if conn:
         cur = conn.cursor()
         cur.execute("DELETE FROM Market WHERE rowid=?", (query.data,))
-        query.edit_message_text(text=f"Eliminazione del libro selezionato...")
+        query.edit_message_text(text="Eliminazione del libro selezionato...")
         conn.commit()
         context.bot.send_message(chat_id, "Libro eliminato.")
     else:
-        query.edit_message_text(text=f"Si è verificato un problema nella lettura del database.")
+        query.edit_message_text(text="Si è verificato un problema nella lettura del database.")
