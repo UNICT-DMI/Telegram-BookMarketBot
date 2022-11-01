@@ -2,7 +2,7 @@ import sqlite3
 from sqlite3 import Error
 from module.shared import DB_PATH, DB_ERROR, INSERT, DELETE, SELECT
 from telegram.ext import CallbackContext
-from typing import Optional
+from typing import Optional, Union
 
 def create_connection(db_file: str) -> sqlite3.Connection:
     conn = None
@@ -14,7 +14,7 @@ def create_connection(db_file: str) -> sqlite3.Connection:
 
 
 # pylint: disable=inconsistent-return-statements
-def connect_and_execute(context: CallbackContext, chat_id: int, query: str, params: tuple, operation: str) -> Optional[int | list]:
+def connect_and_execute(context: CallbackContext, chat_id: int, query: str, params: tuple, operation: str) -> Optional[Unionint, list]]:
     conn = create_connection(DB_PATH)
     if not conn:
         context.bot.send_message(chat_id, DB_ERROR)
