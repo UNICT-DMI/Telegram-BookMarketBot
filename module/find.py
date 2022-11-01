@@ -10,7 +10,7 @@ def find(context: CallbackContext, chat_id: int, txt: str, mode: str) -> Union[i
         query = "SELECT * FROM Books WHERE ISBN=?"
         params = (txt,)
     else:
-        q = "%" + txt + "%"
+        q = f"%{txt}%"
         query = "SELECT rowid, * FROM Market WHERE Title LIKE ? OR ISBN Like ? OR Authors LIKE ?"
         params = (q, q, q,)
         
