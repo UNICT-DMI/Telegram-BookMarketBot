@@ -6,9 +6,8 @@ from module.add_item import add_item
 from module.add_book import add_book
 from module.find import find
 from module.book_in_unict import book_in_unict
-from module.create_connection import create_connection
 from module.send_results import get_book_info
-from module.shared import *
+from module.shared import PRICE_ERROR,USERNAME_ERROR,ISBN_ERROR,SELL_USAGE,ISBN_PREFIX_1,ISBN_PREFIX_2,ON_SALE_CONFIRM,BOOKS,SEARCHING_ISBN,BOOK_NOT_AVAILABLE
 
 
 def _get_isbn_from_website(soup: bs4.BeautifulSoup) -> str:
@@ -23,7 +22,7 @@ def _get_isbn_from_website(soup: bs4.BeautifulSoup) -> str:
         if p1 is not None:
             s = p1.span()[0]
             return isbn[s:s+13]
-        
+
         p2 = re.search(ISBN_PREFIX_2, isbn)
         if p2 is not None:
             s = p2.span()[0]
@@ -75,6 +74,7 @@ def sell(update: Update, context: CallbackContext) -> None:
 
         context.bot.send_message(chat_id, BOOK_NOT_AVAILABLE)
 
+    # pylint: disable=broad-except
     except Exception as e:
         print(str(e))
         context.bot.send_message(chat_id, PRICE_ERROR)

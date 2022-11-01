@@ -8,7 +8,7 @@ from module.book_in_unict import book_in_unict
 from module.create_connection import connect_and_execute
 from module.manage_requests import add_request, send_request
 from module.send_results import get_book_info
-from module.shared import *
+from module.shared import PRICE_ERROR,USERNAME_ERROR,ISBN_ERROR,REQUEST_USAGE,REQUEST_SENT,REQUEST_ALREADY_SENT,BOOK_IS_PRESENT,ON_SALE_CONFIRM,BOOKS,SELECT
 
 
 def _get_isbn_from_website(soup: bs4.BeautifulSoup) -> str:
@@ -35,7 +35,7 @@ def request(update: Update, context: CallbackContext) -> None:
     if len(user_isbn) != 10 and len(user_isbn) != 13:
         context.bot.send_message(chat_id, ISBN_ERROR)
         return
-    
+
     try:
         format(float(message.split('; ')[1].replace(",", ".")), ".2f")
         price = str(format(float(message.split('; ')[1].replace(",", ".")), ".2f"))
@@ -59,11 +59,11 @@ def request(update: Update, context: CallbackContext) -> None:
             context.bot.send_message(chat_id, ON_SALE_CONFIRM)
             return
 
-        _, __, title, authors = message.split('; ')
-        
+        _, _, title, authors = message.split('; ')
+
         query = "SELECT * FROM Requests WHERE ISBN=? AND Seller=?"
         params = (user_isbn, username,)
-        
+
         rows = connect_and_execute(context, chat_id, query, params, SELECT)
         if not rows:
             row_id = add_request(context, chat_id, user_isbn, title, authors, username, price)
@@ -71,9 +71,10 @@ def request(update: Update, context: CallbackContext) -> None:
             message_text = REQUEST_SENT
         else:
             message_text = REQUEST_ALREADY_SENT
-        
+
         context.bot.send_message(chat_id, message_text)
-        
+
+    # pylint: disable=broad-except
     except Exception as e:
         print(str(e))
         context.bot.send_message(chat_id, PRICE_ERROR)
