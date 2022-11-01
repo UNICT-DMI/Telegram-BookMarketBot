@@ -1,3 +1,4 @@
+from pickle import MARK
 from telegram import Update
 from telegram.ext import CallbackContext
 from module.find import find
@@ -14,13 +15,8 @@ def search(update: Update, context: CallbackContext) -> None:
         return
 
     _, message = message.split("/cerca ")
-    conn = create_connection(DB_PATH)
-    if not conn:
-        context.bot.send_message(chat_id, DB_ERROR)
-        return
-
-    rows = find(message, conn, MARKET)
-    conn.close()
+    rows = find(context, chat_id, message, MARKET)
+    
     if rows:
         context.bot.send_message(chat_id, SEARCH_RESULT)
         send_results(rows, chat_id, context)

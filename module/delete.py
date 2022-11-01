@@ -1,7 +1,7 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import CallbackContext
 from module.my_books import get_user_books
-from module.shared import *
+from module.shared import DELETE_USAGE, DELETE_APPROVED, SELECT_BOOK_TO_DELETE
 
 
 def delete(update: Update, context: CallbackContext) -> None:

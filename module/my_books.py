@@ -1,7 +1,7 @@
 from typing import List
 from telegram import Update
 from telegram.ext import CallbackContext
-from module.create_connection import create_connection
+from module.create_connection import connect_and_execute, create_connection
 from module.shared import *
 from module.send_results import send_results
 
@@ -13,10 +13,8 @@ def get_user_books(context: CallbackContext, chat_id: int) -> List[tuple]:
         return
 
     user = "@" + str(context.bot.get_chat(chat_id)["username"])
-    cur = conn.cursor()
-    cur.execute("SELECT rowid, * FROM Market WHERE Seller=?", (user,))
-    rows = cur.fetchall()
-    conn.close()
+    query = "SELECT rowid, * FROM Market WHERE Seller=?"
+    rows = connect_and_execute(context, chat_id, query, (user,), SELECT)
 
     if rows:
         context.bot.send_message(chat_id, LIST_BOOKS)

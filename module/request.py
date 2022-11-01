@@ -5,7 +5,7 @@ from module.add_item import add_item
 from module.add_book import add_book
 from module.find import find
 from module.book_in_unict import book_in_unict
-from module.create_connection import create_connection
+from module.create_connection import connect_and_execute
 from module.manage_requests import add_request, send_request
 from module.send_results import get_book_info
 from module.shared import *
@@ -40,17 +40,12 @@ def request(update: Update, context: CallbackContext) -> None:
         format(float(message.split('; ')[1].replace(",", ".")), ".2f")
         price = str(format(float(message.split('; ')[1].replace(",", ".")), ".2f"))
 
-        conn = create_connection(DB_PATH)
-        if not conn:
-            context.bot.send_message(chat_id, DB_ERROR)
-            return
+        rows = find(context, chat_id, user_isbn, BOOKS)
 
-        rows = find(user_isbn, conn, BOOKS)
-        conn.close()
         if rows:
             isbn, title, authors = rows[0]
             context.bot.send_message(chat_id, BOOK_IS_PRESENT + get_book_info(isbn, title, authors))
-            add_item(isbn, title, authors, username, price)
+            add_item(context, chat_id, isbn, title, authors, username, price)
             context.bot.send_message(chat_id, ON_SALE_CONFIRM)
             return
 
@@ -59,21 +54,17 @@ def request(update: Update, context: CallbackContext) -> None:
             isbn = _get_isbn_from_website(soup)
             title, authors = soup.find("strong").text.split("/")
             context.bot.send_message(chat_id, BOOK_IS_PRESENT + get_book_info(isbn, title, authors))
-            add_book(isbn, title, authors)
-            add_item(isbn, title, authors, username, price)
+            add_book(context, chat_id, isbn, title, authors)
+            add_item(context, chat_id, isbn, title, authors, username, price)
             context.bot.send_message(chat_id, ON_SALE_CONFIRM)
             return
 
         _, __, title, authors = message.split('; ')
         
-        conn = create_connection(DB_PATH)
-        if not conn:
-            context.bot.send_message(chat_id, DB_ERROR)
-            return
-        cur = conn.cursor()
-        cur.execute("SELECT * FROM Requests WHERE ISBN=? AND Seller=?", (user_isbn, username,))
-        rows = cur.fetchall()
+        query = "SELECT * FROM Requests WHERE ISBN=? AND Seller=?"
+        params = (user_isbn, username,)
         
+        rows = connect_and_execute(context, chat_id, query, params, SELECT)
         if not rows:
             row_id = add_request(context, chat_id, user_isbn, title, authors, username, price)
             send_request(context, row_id)

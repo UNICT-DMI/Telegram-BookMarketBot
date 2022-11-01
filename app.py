@@ -2,7 +2,7 @@
 from flask import Flask, request, render_template
 from module.create_connection import create_connection
 from module.shared import DB_PATH, DB_ERROR
-from module.find import find
+from module.find import app_find
 import json
 
 # creating the flask app
@@ -38,7 +38,7 @@ def search():
         return respond({'message': DB_ERROR}, success = False)
     
     # querying the database
-    rows = find(query, conn, "Market")
+    rows = app_find(query, conn, "Market")
     # closing connection
     conn.close()
     # returning results

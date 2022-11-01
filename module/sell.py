@@ -53,16 +53,12 @@ def sell(update: Update, context: CallbackContext) -> None:
         price = str(format(float(message.split()[2].replace(",", ".")), ".2f"))
         context.bot.send_message(chat_id, SEARCHING_ISBN)
 
-        conn = create_connection(DB_PATH)
-        if not conn:
-            context.bot.send_message(chat_id, DB_ERROR)
-            return
+        rows = find(context, chat_id, user_isbn, BOOKS)
 
-        rows = find(user_isbn, conn, BOOKS)
         if rows:
             isbn, title, authors = rows[0]
             context.bot.send_message(chat_id, get_book_info(isbn, title, authors))
-            add_item(isbn, title, authors, username, price)
+            add_item(context, chat_id, isbn, title, authors, username, price)
             context.bot.send_message(chat_id, ON_SALE_CONFIRM)
             return
 
@@ -71,13 +67,12 @@ def sell(update: Update, context: CallbackContext) -> None:
             isbn = _get_isbn_from_website(soup)
             title, authors = soup.find("strong").text.split("/")
             context.bot.send_message(chat_id, get_book_info(isbn, title, authors))
-            if not find(isbn, conn, BOOKS):
-                add_book(isbn, title, authors)
-            add_item(isbn, title, authors, username, price)
+            if not find(context, chat_id, isbn, BOOKS):
+                add_book(context, chat_id, isbn, title, authors)
+            add_item(context, chat_id, isbn, title, authors, username, price)
             context.bot.send_message(chat_id, ON_SALE_CONFIRM)
             return
-        
-        conn.close()
+
         context.bot.send_message(chat_id, BOOK_NOT_AVAILABLE)
 
     except Exception as e:

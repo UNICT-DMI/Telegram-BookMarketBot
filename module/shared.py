@@ -63,6 +63,11 @@ ISBN_PREFIX_1 = "978"
 
 ISBN_PREFIX_2 = "979"
 
+INSERT = "insert"
+
+SELECT = "select"
+
+FIND = "find"
 
 # Delete
 DELETE = "delete"
