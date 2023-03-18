@@ -6,6 +6,7 @@ from module.sell import sell
 from module.delete import delete
 from module.my_books import my_books
 from module.request import request
+from module.stats import stats
 from module.button import button
 
 
@@ -18,4 +19,5 @@ def handlers(updater: Updater) -> None:
     dispatcher.add_handler(CommandHandler("elimina", delete))
     dispatcher.add_handler(CommandHandler("libri", my_books))
     dispatcher.add_handler(CommandHandler("richiedi", request))
+    dispatcher.add_handler(CommandHandler("stats", stats))
     dispatcher.add_handler(CallbackQueryHandler(button))

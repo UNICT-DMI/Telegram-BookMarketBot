@@ -53,6 +53,8 @@ CASCADE_REQUEST = "Richiesta accettata a cascata precedentemente."
 
 BOOK_IS_PRESENT = "Il libro esiste già nel database locale. "
 
+STATS_MESSAGE = "Il numero di libri in vendita in questo momento nel market è: "
+
 
 # Other constant
 NO = "N"
