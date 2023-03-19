@@ -29,7 +29,7 @@ def delete_request(context: CallbackContext, row_id: int) -> None:
 def send_request(context: CallbackContext, row_id: int) -> None:
     group_id = get_group_id()
 
-    keyboard = [[InlineKeyboardButton(YES, callback_data = (NEW_REQUEST_APPROVED + str(row_id)))], [InlineKeyboardButton(NO, callback_data = (NEW_REQUEST_DECLINED + str(row_id)))]]
+    keyboard = [[InlineKeyboardButton(YES, callback_data = NEW_REQUEST_APPROVED + str(row_id))], [InlineKeyboardButton(NO, callback_data = NEW_REQUEST_DECLINED + str(row_id))]]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     query = "SELECT ISBN, Title, Authors, Seller, Price FROM Requests WHERE rowid=?"

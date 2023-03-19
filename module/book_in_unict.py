@@ -3,7 +3,7 @@ import requests
 from module.shared import URL_1, URL_2, NO_MATCHES
 
 def book_in_unict(user_isbn: str) -> tuple:
-    url = (URL_1 + user_isbn + URL_2)
+    url = URL_1 + user_isbn + URL_2
     x = requests.get(url, timeout=10)
     soup = BeautifulSoup(x.content, "html.parser")
     check = str(soup.findAll("td"))
