@@ -22,7 +22,7 @@ def _get_isbn_from_website(soup: bs4.BeautifulSoup) -> str:
 def request(update: Update, context: CallbackContext) -> None:
     chat_id = update.effective_chat.id
     message = update.message.text
-    if message == "/richiedi" or len(message.split('; ')) != 4:
+    if message == "/richiedi" or len(message.split(';')) != 4:
         context.bot.send_message(chat_id, REQUEST_USAGE)
         return
 
@@ -31,14 +31,14 @@ def request(update: Update, context: CallbackContext) -> None:
         context.bot.send_message(chat_id, USERNAME_ERROR)
         return
 
-    user_isbn = message.split('; ')[0].split()[1]
+    user_isbn = message.split(';')[0].split()[1].replace(' ','')
     if len(user_isbn) != 10 and len(user_isbn) != 13:
         context.bot.send_message(chat_id, ISBN_ERROR)
         return
 
     try:
-        format(float(message.split('; ')[1].replace(",", ".")), ".2f")
-        price = str(format(float(message.split('; ')[1].replace(",", ".")), ".2f"))
+        format(float(message.split(';')[1].replace(",", ".").replace(" ","")), ".2f")
+        price = str(format(float(message.split(';')[1].replace(",", ".").replace(" ","")), ".2f"))
 
         rows = find(context, chat_id, user_isbn, BOOKS)
 
@@ -59,7 +59,7 @@ def request(update: Update, context: CallbackContext) -> None:
             context.bot.send_message(chat_id, ON_SALE_CONFIRM)
             return
 
-        _, _, title, authors = message.split('; ')
+        _, _, title, authors = message.split(';')
 
         query = "SELECT * FROM Requests WHERE ISBN=? AND Seller=?"
         params = (user_isbn, username,)
