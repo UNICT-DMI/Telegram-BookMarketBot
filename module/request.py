@@ -37,15 +37,15 @@ def request(update: Update, context: CallbackContext) -> None:
         return
 
     try:
-        format(float(message.split(';')[1].replace(",", ".").replace(" ","")), ".2f")
-        full_price = str(format(float(message.split(';')[1].replace(",", ".").replace(" ","")), ".2f"))
+        full_price = float(message.split(';')[1].replace(",", ".").replace(" ",""))
+        price = str(format(full_price, ".2f"))
 
         rows = find(context, chat_id, user_isbn, BOOKS)
 
         if rows:
             isbn, title, authors = rows[0]
             context.bot.send_message(chat_id, BOOK_IS_PRESENT + get_book_info(isbn, title, authors))
-            add_item(context, chat_id, isbn, title, authors, username, full_price)
+            add_item(context, chat_id, isbn, title, authors, username, price)
             context.bot.send_message(chat_id, ON_SALE_CONFIRM)
             return
 
@@ -55,7 +55,7 @@ def request(update: Update, context: CallbackContext) -> None:
             title, authors = soup.find("strong").text.split("/")
             context.bot.send_message(chat_id, BOOK_IS_PRESENT + get_book_info(isbn, title, authors))
             add_book(context, chat_id, isbn, title, authors)
-            add_item(context, chat_id, isbn, title, authors, username, full_price)
+            add_item(context, chat_id, isbn, title, authors, username, price)
             context.bot.send_message(chat_id, ON_SALE_CONFIRM)
             return
 
@@ -66,7 +66,7 @@ def request(update: Update, context: CallbackContext) -> None:
 
         rows = connect_and_execute(context, chat_id, query, params, SELECT)
         if not rows:
-            row_id = add_request(context, chat_id, user_isbn, title, authors, username, full_price)
+            row_id = add_request(context, chat_id, user_isbn, title, authors, username, price)
             send_request(context, row_id)
             message_text = REQUEST_SENT
         else:
