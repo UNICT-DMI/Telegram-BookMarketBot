@@ -1,39 +1,82 @@
-class SearchBar extends HTMLElement {
+class SearchBar extends Component {
     constructor() {
         super();
-        this.setup();
+        this.shelf = document.getElementsByTagName('book-case');
     }
 
-    setup() {
-        this.input = document.getElementById('search-input');
-        this.input.addEventListener('input', this.oninput.bind(this));
-    }
-
-    oninput(event) {
-        // request the API
-        // remember the current value
-        let current = this.input.value;
-        // prevent useless calls in case
-        // the user is still typing
+    oninput(bar) {
+        const query = bar.value;
+        // Trigger actual search process if
+        // query doesn't change for a few seconds
+        // (which means the user has stopped typing)
         setTimeout(() => {
-            if (current != this.input.value) return;
-            app.api.search(this.input.value, (response) => {
-                // in case the user has typed some other
-                // characters, don't display the
-                // old search results, because they
-                // may go over the correct ones.
-                if (current != this.input.value) return;
-    
-                if (response.success) {
-                    // update the UI
-                    app.results.update(response.results);
-                } else {
-                    // display error message
-                    alert('Error: ' + response.message);
-                }
-            });
-        }, 500);
+            if (query == bar.value) {
+                this.search(query);
+            }
+        }, 1000);
+
+        // Hiding website instructions
+        app.instructions.classList.add('faded');
     }
-}
+
+    search(query) {
+        // In case page is not visible
+        app.home.enterFromRight(true);
+        
+        // Searching books
+        fetch(`search?q=${query}`)
+         .then((response) => response.json())
+         .then((data) => {
+            const books = app.api.formatBooks(data.results);
+            this.update(books);
+         });
+    }
+
+    update(books) {
+        this.data = books;
+        if (books.length == 0) {
+            // No books found.
+            app.noResults.show();
+            for (let j = 0; j < this.shelf.length; j++) {
+                this.shelf[j].hide();
+            }
+
+        } else {
+            app.noResults.hide();
+            // Filtering the list of results to remove
+            // duplicates. The various offers will
+            // be shown later, when clicking on the book.
+            books = this.removeDuplicates(books);
+            // Displaying results
+            this.displayResults(books);
+            app.instructions.hide();
+            
+            // Hiding unused components
+            for (let j = books.length; j < this.shelf.length; j++) {
+                this.shelf[j].hide();
+            }
+        }
+    }
+
+
+    removeDuplicates(books) {
+        this.prices = {};
+        return books.filter((book) => {
+            const result = !this.prices[book.isbn];
+            if (book.price < (this.prices[book.isbn] || book.price + 1.0)) {
+                this.prices[book.isbn] = book.price;
+            }
+
+            return result;
+        })
+    }
+
+    displayResults(books, count = 0) {
+        if (count < books.length) {
+            this.shelf[count].update({...books[count], price: this.prices[books[count].isbn]});
+            setTimeout(this.displayResults.bind(this, books, count + 1), 300);
+        }
+    }
+};
 
 window.customElements.define('search-bar', SearchBar);

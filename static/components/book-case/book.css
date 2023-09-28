@@ -1,0 +1,62 @@
+book-case {
+    display: none;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    transition: 200ms background-color ease-in-out, 300ms opacity ease-in-out, 200ms transform ease-in-out;
+    opacity: 0%;
+    transform: translate(100vw, 0px);
+}
+
+book-case:hover {
+    cursor: pointer;
+    background-color: var(--secondary-background-color);
+}
+
+book-case.updated {
+    transform: none;
+    opacity: 100%;
+}
+
+book-sep {
+    display: flex;
+    flex-direction: row;
+}
+
+book-data {
+    margin-left: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 16px;
+}
+
+.book-info {
+    object-fit: contain;
+}
+
+book-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 3px;
+    max-width: 700px;
+}
+
+.book-description {
+    /* width: 75%; */
+}
+
+.book-price {
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 85%;
+}

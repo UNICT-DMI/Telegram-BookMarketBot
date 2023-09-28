@@ -1,0 +1,23 @@
+search-bar {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+    background-color: var(--secondary-background-color);
+    width: 80%;
+    height: 60px;
+    margin: 0 auto;
+    margin-top: 26px;
+    margin-bottom: 40px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.5);
+}
+
+search-bar icon-container {
+    margin: 21px;
+}
+
+search-bar input {
+    font-size: 24px;
+    width: 80%;
+}

@@ -1,0 +1,52 @@
+.instructions-case {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+    padding: 20px;
+    font-weight: bold;
+    opacity: 100%;
+    transition: opacity 300ms ease-in-out;
+}
+
+.instructions-case.faded {
+    opacity: 0%;
+}
+
+.instructions-sep {
+    width: 100%;
+}
+
+instructions-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    width: 33%;
+    min-width: 250px;
+}
+
+instructions-step span {
+    opacity: 75%;
+}
+
+.no-results {
+    flex-direction: column;
+    font-size: 30px;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 30px;
+    opacity: 80%;
+    transition: opacity 200ms;
+    margin-bottom: 30px;
+}
+
+.no-results.hidden {
+    opacity: 0%;
+}

@@ -1,0 +1,56 @@
+/* CSS adjustments for smaller screens */
+@media (max-width: 800px) {
+    custom-header {
+        flex-direction: column;
+    }
+
+    search-bar {
+        margin-left: 0px;
+        margin-right: 0px;
+        width: 100% !important;
+    }
+
+    search-bar input {
+        font-size: 18px;
+    }
+
+    instructions-case {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    instructions-step {
+        margin-bottom: 50px;
+    }
+
+    instructions-step image-frame {
+        --width: 100% !important;
+    }
+
+    book-section {
+        align-items: center;
+        justify-content: center;
+        padding: 0px;
+    }
+
+    book-info {
+        padding: 0px;
+        margin-bottom: 30px;
+    }
+
+    book-content {
+        padding: 0px;
+    }
+
+    .book-arrow {
+        display: none !important;
+    }
+
+    book-content {
+        margin-left: 0px;
+    }
+
+    insertion-data insertion-authors {
+        display: none;
+    }
+}

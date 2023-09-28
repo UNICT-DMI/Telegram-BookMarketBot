@@ -1,0 +1,74 @@
+book-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+book-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-left: 10px;
+    flex: 1;
+}
+
+book-section [name = "cover"] {
+    padding: 15px;
+}
+
+book-section [name = "bookTitle"] {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+book-section [name = "description"] {
+    font-size: 24px;
+    opacity: 80%;
+    margin-top: 5px;
+    width: 100%;
+}
+
+
+book-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+[name = "rows"] {
+    display: flex;
+    flex-direction: column;
+}
+
+table-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 2px;
+}
+
+table-row:nth-of-type(even) {
+    background-color: var(--secondary-background-color);
+}
+
+table-row.bold > * {
+    font-weight: bold;
+}
+
+table-row > * {
+    margin: 5px;
+    width: 33%;
+    text-align: center;
+}
+
+book-section a {
+    text-decoration: underline;
+    color: rgb(var(--accent-color));
+}

@@ -1,0 +1,9 @@
+/* Defining some CSS variables for the page theme */
+html {
+    /* --tg variables are only available inside telegram webapps */
+    --text-color: var(--tg-theme-text-color, black);
+    --background-color: var(--tg-theme-bg-color, white);
+    --secondary-background-color: var(--tg-theme-secondary-bg-color, rgb(238, 238, 238));
+    /* --accent-color: var(--tg-theme-button-color); */
+    --accent-color: 107, 1, 236;
+}

@@ -1,0 +1,18 @@
+custom-header {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header-logo, header-button {
+    display: flex;
+    align-items: center;
+    margin: 8px;
+}
+
+header-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 8px;
+}

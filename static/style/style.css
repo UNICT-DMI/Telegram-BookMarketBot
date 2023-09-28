@@ -1,0 +1,80 @@
+/* General CSS directives */
+* {
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    color: var(--text-color);
+}
+
+html {
+    /* prevent scrolling on the whole thing */
+    overflow: hidden;
+    scroll-behavior: auto !important;
+    overflow-y: scroll;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+
+.shadow {
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.2);
+}
+
+.box {
+    display: flex;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+
+img {
+    user-drag: none;
+    -webkit-user-drag: none;
+}
+
+input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+a {
+    text-decoration: none;
+    transition: 300ms color ease-in-out;
+}
+
+a:hover {
+    color: rgb(var(--accent-color));
+}
+
+
+app-container {
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 980px;
+    padding: 25px;
+}
+
+page-container {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    position: relative;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}

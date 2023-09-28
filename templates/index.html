@@ -1,56 +1,291 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Page title -->
-        <title>Mercatino Libri UNICT</title>
-
-        <!-- Telegram WebApp -->
-        <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-        <!-- Meta tag for mobile devices -->
+        <title>BookMarket UNICT</title>
+        <!-- Scaling view for mobile -->
         <meta name = "viewport" content = "width=device-width, initial-scale=1" />
+        <!-- Linking favicon.ico for browsers -->
+        <link rel = "icon" type = "image/x-icon" href = "favicon.ico">
 
-        <!-- Loading components -->
-        <!-- icon container -->
-        <script defer src = "static/components/icon-container/icon.js"></script>
-        <link rel = "stylesheet" href = "static/components/icon-container/icon.css">
-        <!-- app container -->
-        <link rel = "stylesheet" href = "static/components/app-container/container.css">
-        <!-- app header -->
-        <script defer src = "static/components/app-header/header.js"></script>
-        <link rel = "stylesheet" href = "static/components/app-header/header.css">
-        <!-- search bar -->
-        <script defer src = "static/components/search-bar/search.js"></script>
-        <link rel = "stylesheet" href = "static/components/search-bar/search.css">
-        <!-- search results -->
-        <script defer src = "static/components/search-results/results.js"></script>
-        <link rel = "stylesheet" href = "static/components/search-results/results.css">
-        <!-- search result -->
-        <script defer src = "static/components/search-result/result.js"></script>
-        <link rel = "stylesheet" href = "static/components/search-result/result.css">
-        <!-- other scripts/styles -->
-        <script src = "static/utils/colors.js"></script>
-        <link rel = "stylesheet" href = "static/res/fonts/fonts.css">
-        <script src = "static/utils/api.js"></script>
+        <!-- OpenGraph data – https://ogp.me/ -->
+        <meta property = "og:title" content = "UNICT BookMarket" />
+        <meta property = "og:type" content = "website" />
+        <meta property = "og:image" content = "static/images/preview.png" />
+        <meta property = "og:image:width" content = "3000" />
+        <meta property = "og:image:height" content = "1200" />
+        <meta property = "og:description" content = "A Telegram Bot for UNICT students to sell and buy second hand university books." />
+        <meta name = "twitter:card" content="summary_large_image" />
+        <meta name = "twitter:image" content="static/images/preview.png" />
+
+        <!-- Stuff for the PWA -->
+        <meta name = "theme-color" content = "#ffffff"> <!-- content = "#6b01ec" -->
+        <link rel = "manifest" href = "manifest.json">
+        <link sizes = "180x180" rel = "apple-touch-icon" href = "static/images/apple-touch-icon-180.png">
+        <link sizes = "192x192" rel = "apple-touch-icon" href = "static/images/apple-touch-icon-192.png">
+        <link sizes = "512x512" rel = "apple-touch-icon" href = "static/images/apple-touch-icon-512.png">
+        <script async src = "static/scripts/pwa.js"></script>
+
+        <!-- Stylesheets -->
+        <link rel = "stylesheet" href = "static/style/colors.css">
+        <link rel = "stylesheet" href = "static/style/style.css">
+        <link rel = "stylesheet" href = "static/style/fonts.css">
+        <link rel = "stylesheet" href = "static/style/mobile.css">
+
+        <!-- JavaScript libraries -->
+        <script src = "https://telegram.org/js/telegram-web-app.js"></script>
+        <script>
+            // Only load sweet-alert package if outside of the web app
+            if (!window.Telegram.WebApp.initData) {
+                var script = document.createElement('script');
+                // script.async = true;
+                script.src = "https://cdn.jsdelivr.net/npm/sweetalert2@11";
+                document.head.appendChild(script);
+            }
+        </script>
+
+        <!-- Jinja template for the requested page -->
+        <script>const page = "{{ page }}";</script>
+        
+        <!-- Scripts -->
+        <script src = "static/init.js"></script>
+        <script src = "static/base/component.js"></script>
+        <link rel = "stylesheet" href = "static/base/component.css">
+        <script src = "static/base/page.js"></script>
+        <link rel = "stylesheet" href = "static/base/page.css">
+
+        <script src = "static/scripts/utils.js"></script>
+        <script src = "static/components/image-frame/frame.js"></script>
+        <script src = "static/components/image-frame/icon.js"></script>
+        <link rel = "stylesheet" href = "static/components/image-frame/frame.css">
+        <script src = "static/components/loading/loading.js"></script>
+        <script src = "static/scripts/colors.js"></script>
+        <script src = "static/scripts/api.js"></script>
+        <script src = "static/app.js"></script>
+        
+        <!-- Components -->
+        <!-- Header -->
+        <link rel = "stylesheet" href = "static/components/header/header.css">
+        <!-- Button -->
+        <link rel = "stylesheet" href = "static/components/button/button.css">
+        <!-- Search bar -->
+        <link rel = "stylesheet" href = "static/components/search-bar/search-bar.css">
+        <script src = "static/components/search-bar/search.js"></script>
+        <!-- Footer -->
+        <link rel = "stylesheet" href = "static/components/footer/footer.css">
+        <!-- Book case -->
+        <link rel = "stylesheet" href = "static/components/book-case/book.css">
+        <script src = "static/components/book-case/book.js"></script>
+        <!-- Insertion -->
+        <script src = "static/components/insertion/insertion.js"></script>
+
+        <!-- Pages -->
+        <!-- Home -->
+        <link rel = "stylesheet" href = "static/pages/home.css">
+        <!-- Book -->
+        <link rel = "stylesheet" href = "static/pages/book.css">
+        <script src = "static/pages/book.js"></script>
+        <!-- Insert a a book -->
+        <link rel = "stylesheet" href = "static/pages/form.css">
+        <script src = "static/pages/form.js"></script>
+        <!-- My insertions -->
+        <link rel = "stylesheet" href = "static/pages/insertions.css">
+        <script src = "static/pages/insertions.js"></script>
     </head>
     <body>
         <app-container>
-            <!-- app logo -->
-            <!-- <app-header>
-                <icon-container src = "res/logo.png" size = "100"></icon-container>
-                <header-text></header-text>
-            </app-header> -->
-
-            <!-- search bar -->
-            <search-bar>
-                <icon-container name = "search" size = "36" color = "000000"></icon-container>
-                <input placeholder = "Search.." id = "search-input" autofocus>
+            <custom-header>
+                <header-logo>
+                    <icon-container tag = "book" type = "color" size = 48></icon-container>
+                    <header-title>Book Market</header-title>
+                </header-logo>
+                <header-button>
+                    <base-component class = "custom-button hidden" name = "addBookButton" onclick = "app.form.fadeIn()">
+                        <icon-container tag = "plus-math" color = "--accent-color" size = 28></icon-container>
+                        <button-text>Inserisci annuncio</button-text>
+                    </base-component>
+                    <base-component class = "custom-button hidden" name = "listBooksButton" onclick = "app.insertions.update()">
+                        <icon-container tag = "list" color = "--accent-color" size = 28></icon-container>
+                        <button-text>I tuoi annunci</button-text>
+                    </base-component>
+                    <script type = "text/javascript" src = "static/scripts/telegram.js"></script>
+                    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="BookMarketTestBot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+                </header-button>
+            </custom-header>
+            <search-bar name = "search">
+                <icon-container tag = "search" color = "949494" size = 32></icon-container>
+                <input placeholder = "Titolo o ISBN.." oninput = app.search.oninput(this)>
             </search-bar>
-
-            <!-- search results -->
-            <search-results></search-results>
+            <hr class = "instructions-sep">
+            <page-container>
+                <base-page name = "home">
+                    <icon-container class = "no-results hidden" name = "noResults" tag = "nothing-found--v2" size = 120>
+                        Nessun risultato
+                    </icon-container>
+                    <base-component name = "instructions" class = "instructions-case">
+                        <instructions-step>
+                            <span>Seleziona il libro</span>
+                            <image-frame src = "static/images/pic-1.png"></image-frame>
+                        </instructions-step>
+                        <instructions-step>
+                            <span>Contatta il venditore</span>
+                            <image-frame src = "static/images/pic-2.png"></image-frame>
+                        </instructions-step>
+                        <instructions-step>
+                            <span>Concludi l'affare</span>
+                            <image-frame src = "static/images/pic-3.png"></image-frame>
+                        </instructions-step>
+                    </base-component>
+                    <books-list>
+                        <book-case>
+                            <book-sep>
+                                <image-frame src = "static/images/no-cover.png" name = "cover" class = "book-image" width = 110></image-frame>
+                                <book-data>
+                                    <book-info>
+                                        <base-component class = "book-title" name = "name"></base-component>
+                                        <base-component class = "book-description" name = "description"></base-component>
+                                    </book-info>
+                                    <base-component name = "price" class = "book-price"></base-component>
+                                </book-data>
+                            </book-sep>
+                            <icon-container class = "book-arrow" tag = "forward" type = "material" color = "949494"></icon-container>
+                        </book-case>
+                        <book-case>
+                            <book-sep>
+                                <image-frame src = "static/images/no-cover.png" name = "cover" class = "book-image" width = 110></image-frame>
+                                <book-data>
+                                    <book-info>
+                                        <base-component class = "book-title" name = "name"></base-component>
+                                        <base-component class = "book-description" name = "description"></base-component>
+                                    </book-info>
+                                    <base-component name = "price" class = "book-price"></base-component>
+                                </book-data>
+                            </book-sep>
+                            <icon-container class = "book-arrow" tag = "forward" type = "material" color = "949494"></icon-container>
+                        </book-case>
+                        <book-case>
+                            <book-sep>
+                                <image-frame src = "static/images/no-cover.png" name = "cover" class = "book-image" width = 110></image-frame>
+                                <book-data>
+                                    <book-info>
+                                        <base-component class = "book-title" name = "name"></base-component>
+                                        <base-component class = "book-description" name = "description"></base-component>
+                                    </book-info>
+                                    <base-component name = "price" class = "book-price"></base-component>
+                                </book-data>
+                            </book-sep>
+                            <icon-container class = "book-arrow" tag = "forward" type = "material" color = "949494"></icon-container>
+                        </book-case>
+                        <book-case>
+                            <book-sep>
+                                <image-frame src = "static/images/no-cover.png" name = "cover" class = "book-image" width = 110></image-frame>
+                                <book-data>
+                                    <book-info>
+                                        <base-component class = "book-title" name = "name"></base-component>
+                                        <base-component class = "book-description" name = "description"></base-component>
+                                    </book-info>
+                                    <base-component name = "price" class = "book-price"></base-component>
+                                </book-data>
+                            </book-sep>
+                            <icon-container class = "book-arrow" tag = "forward" type = "material" color = "949494"></icon-container>
+                        </book-case>
+                        <book-case>
+                            <book-sep>
+                                <image-frame src = "static/images/no-cover.png" name = "cover" class = "book-image" width = 110></image-frame>
+                                <book-data>
+                                    <book-info>
+                                        <base-component class = "book-title" name = "name"></base-component>
+                                        <base-component class = "book-description" name = "description"></base-component>
+                                    </book-info>
+                                    <base-component name = "price" class = "book-price"></base-component>
+                                </book-data>
+                            </book-sep>
+                            <icon-container class = "book-arrow" tag = "forward" type = "material" color = "949494"></icon-container>
+                        </book-case>
+                        <book-case>
+                            <book-sep>
+                                <image-frame src = "static/images/no-cover.png" name = "cover" class = "book-image" width = 110></image-frame>
+                                <book-data>
+                                    <book-info>
+                                        <base-component class = "book-title" name = "name"></base-component>
+                                        <base-component class = "book-description" name = "description"></base-component>
+                                    </book-info>
+                                    <base-component name = "price" class = "book-price"></base-component>
+                                </book-data>
+                            </book-sep>
+                            <icon-container class = "book-arrow" tag = "forward" type = "material" color = "949494"></icon-container>
+                        </book-case>
+                    </books-list>
+                </base-page>
+                <base-page name = "bookPage">
+                    <back-button-field>
+                        <custom-button class = "custom-button" onclick = "app.home.enterFromRight(true)">
+                            <icon-container tag = "left" color = "--accent-color" size = 28></icon-container>
+                            <button-text>ricerca</button-text>
+                        </custom-button>
+                    </back-button-field>
+                    <book-section name = "bookDetails">
+                        <image-frame name = "cover" src = "static/images/no-cover.png" width = 250></image-frame>
+                        <book-content>
+                            <book-info>
+                                <base-component name = "bookTitle">Book title</base-component>
+                                <base-component name = "description">Book text</base-component>
+                            </book-info>
+                            <book-table>
+                                <table-row class = "bold">
+                                    <row-price>Prezzo</row-price>
+                                    <span>Contatto</span>
+                                    <!-- <row-conditions>Condizioni</row-conditions> -->
+                                </table-row>
+                                <base-component name = "rows">
+                                </base-component>
+                            </book-table>
+                        </book-content>
+                    </book-section>
+                </base-page>
+                <form-page name = "form">
+                    <image-frame name = "cover" src = "static/images/add-book.png" width = 250></image-frame>
+                    <custom-form>
+                        <form-case>
+                            <icon-container tag = "book--v1" color = "--accent-color" size = 28></icon-container>
+                            <input id = "form-isbn" placeholder = "Codice ISBN" oninput = "setImage(app.form.cover.image, getCoverUrl(this.value))">
+                        </form-case>
+                        <!-- <form-case>
+                            <icon-container tag = "warranty" color = "--accent-color" size = 28></icon-container>
+                            <label for="condizioni">Condizioni</label>
+                            <select name = "condizioni">
+                                <option value = "ottime">Ottime</option>
+                                <option value = "buone">Buone</option>
+                                <option value = "scarse">Scarse</option>
+                                <option value = "pessime">Pessime</option>
+                            </select>
+                        </form-case> -->
+                        <form-case>
+                            <icon-container tag = "euro-pound-exchange--v1" color = "--accent-color" size = 28></icon-container>
+                            <input id = "form-price" placeholder = "Prezzo" type = "number" min = 0>
+                        </form-case>
+                        <custom-button class = "custom-button" onclick = "app.form.submit()">
+                            <icon-container tag = "send" color = "--accent-color" size = 28></icon-container>
+                            <button-text>Invia</button-text>
+                        </custom-button>
+                    </custom-form>
+                </form-page>
+                <insertions-page name = "insertions">
+                    
+                </insertions-page>
+            </page-container>
+            <hr class = "instructions-sep">
+            <custom-footer>
+                <div class = "column">
+                    <b>Link Telegram</b>
+                    <a href = "https://t.me/UNICT_Book_Market_Bot">Book Market bot</a>
+                    <a href = "https://t.me/unict_devs">Canale UNICT Devs</a>
+                </div>
+                <div class = "column">
+                    <b>Link GitHub</b>
+                    <a href = "https://github.com/UNICT-DMI/Telegram-BookMarketBot">Codice sorgente</a>
+                    <a href = "https://github.com/UNICT-DMI">UNICT GitHub</a>
+                </div>
+            </custom-footer>
         </app-container>
-
-        <script src = "static/main.js"></script>
     </body>
 </html>
