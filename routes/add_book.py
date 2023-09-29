@@ -22,45 +22,45 @@ def sell() -> Response:
     if type(user) == Response:
         # Telegram data is invalid.
         return user
+    
+    # Checking username
+    username = user.get('username', None)
+    if not username:
+        return respond({'message': USERNAME_ERROR}, success = False)
+    username = '@' + username
+    # Checking ISBN
+    user_isbn = request.json.get('isbn', 'None')
+    if not check_isbn(user_isbn):
+        return respond({'message': ISBN_ERROR}, success = False)
+    # Checking price
+    # price = format(float(request.json.get('price', '-1.0').replace(',', '.')), '.2f')
+    price = request.json.get('price', None)
+    if not check_price(price):
+        return respond({'message': PRICE_ERROR}, success = False)
+    
+    # Searching ISBN in local database
+    search = _find(user['id'], user_isbn)
+    if search['success'] and search['result']:
+        # Found in local database.
+        isbn, title, authors = search['result'][0]
     else:
-        # Checking username
-        username = user.get('username', None)
-        if not username:
-            return respond({'message': USERNAME_ERROR}, success = False)
-        else: username = '@' + username
-        # Checking ISBN
-        user_isbn = request.json.get('isbn', 'None')
-        if not check_isbn(user_isbn):
-            return respond({'message': ISBN_ERROR}, success = False)
-        # Checking price
-        # price = format(float(request.json.get('price', '-1.0').replace(',', '.')), '.2f')
-        price = request.json.get('price', None)
-        if not check_price(price):
-            return respond({'message': PRICE_ERROR}, success = False)
-        
-        # Searching ISBN in local database
-        search = _find(user['id'], user_isbn)
-        if search['success'] and search['result']:
-            # Found in local database.
-            isbn, title, authors = search['result'][0]
+        # Not found. Searching ISBN in unict
+        found, soup = book_in_unict(user_isbn)
+        if found:
+            # Found in unict.
+            isbn, title, authors = data_from_soup(soup)
+            # Adding book to the local database in case it's missing
+            if not _find(user['id'], isbn):
+                result = _add_book(user['id'], isbn, title, authors)
+                if not result['success']: pass # not critical, ignoring
         else:
-            # Not found. Searching ISBN in unict
-            found, soup = book_in_unict(user_isbn)
-            if found:
-                # Found in unict.
-                isbn, title, authors = data_from_soup(soup)
-                # Adding book to the local database in case it's missing
-                if not _find(user['id'], isbn):
-                    result = _add_book(user['id'], isbn, title, authors)
-                    if not result['success']: pass # not critical, ignoring
-            else:
-                # Book not found in both local and unict.
-                return respond({'message': BOOK_NOT_AVAILABLE}, success = False)
-        
-        # All fine. Adding to the insertions database and returning
-        result = _add_item(user['id'], isbn, title, authors, username, price)
-        return respond({
-            'message': ON_SALE_CONFIRM if result['success'] else result['resultz'],
-            'title': title,
-            'authors': authors
-        }, success = result['success'])
+            # Book not found in both local and unict.
+            return respond({'message': BOOK_NOT_AVAILABLE}, success = False)
+    
+    # All fine. Adding to the insertions database and returning
+    result = _add_item(user['id'], isbn, title, authors, username, price)
+    return respond({
+        'message': ON_SALE_CONFIRM if result['success'] else result['resultz'],
+        'title': title,
+        'authors': authors
+    }, success = result['success'])

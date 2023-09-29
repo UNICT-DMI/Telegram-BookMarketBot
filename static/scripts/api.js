@@ -20,20 +20,15 @@ class API {
 
 
     formatBooks(data) {
-        var books = [];
-        data.forEach((raw) => {
-            books.push({
-                isbn: raw[1],
-                title: raw[2],
-                description: raw[3],
-                seller: raw[4],
-                price: parseFloat(raw[5]),
-                cover: getCoverUrl(raw[1]),
-                insertion_id: raw[0]
-            });
-        });
-
-        return books;
+        return data.map((raw) => ({
+            isbn: raw[1],
+            title: raw[2],
+            description: raw[3],
+            seller: raw[4],
+            price: parseFloat(raw[5]),
+            cover: getCoverUrl(raw[1]),
+            insertion_id: raw[0]
+        }));
     }
 };
 

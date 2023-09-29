@@ -10,8 +10,10 @@ class BookPage extends Component {
         this.description.textContent = book.description;
         setImage(this.cover.image, book.cover);
         
-        const offers = app.search.data.filter((e, i, _) => e.isbn == book.isbn)
-        for (var i=0; i < offers.length; i++) {
+        const offers = app.search.data.filter((e, i, _) => e.isbn == book.isbn);
+
+        let i = 0;
+        for (i; i < offers.length; i++) {
             if (this.offersTable[i]) {
                 this.updateRow(this.offersTable[i], offers[i]);
             } else {

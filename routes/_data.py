@@ -16,16 +16,16 @@ def _add_item(chat_id: int, isbn: str, title: str, authors: str, username: str, 
     params = (isbn, title, authors, username, price)
     return _connect_and_execute(query, params, INSERT)
 
-def _get_item(row_id: int):
+def _get_item(row_id: int) -> dict:
     sql = "SELECT * FROM Market WHERE rowid=?"
     return _connect_and_execute(sql, (int(row_id),), SELECT)
 
-def _remove_item(row_id: int):
+def _remove_item(row_id: int) -> dict:
     sql = "DELETE FROM Market WHERE rowid=?"
     result = _connect_and_execute(sql, (int(row_id),), DELETE)
     if result['success']:
         return {'success': True, 'message': DELETED}
-    else: return result
+    return result
 
 def _add_book(chat_id: int, isbn: str, title: str, authors: str) -> dict:
     # Equivalent of module.add_item, but without
@@ -47,8 +47,7 @@ def _get_user_books(chat_id: int, username: str) -> dict:
     rows = _connect_and_execute(query, (username,), SELECT)
     if rows['success']:
         return {'success': True, 'result': rows['result'] if rows['result'] else []}
-    else:
-        return {'success': False, 'message': rows['message']}
+    return {'success': False, 'message': rows['message']}
 
 
 def _connect_and_execute(query: str, params: tuple, operation: str) -> dict:

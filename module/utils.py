@@ -6,7 +6,7 @@ from typing import Callable
 import requests
 
 
-def check_isbn(isbn: str):
+def check_isbn(isbn: str) -> bool:
     "Checks whether an ISBN code is valid."
     # Example: "9788838667510"
     if len(isbn) == 10:
@@ -25,6 +25,7 @@ def check_isbn(isbn: str):
         # If the remainder is zero, then it is a valid 13 digit ISBN.
         # If the remainder is not zero, then it is not a valid 13 digit ISBN.
         return val % 10 == 0
+    return False
 
 
 def check_price(price: str) -> str:
