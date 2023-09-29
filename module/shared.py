@@ -117,6 +117,8 @@ NO_MATCHES = "No matches found"
 # API error messages
 INVALID_DATA = "Invalid data. Make sure you have set the Content-Type header to \"application/json\"."
 
-def MISSING_FIELD(key): return f"Missing {key} field in JSON body."
+def MISSING_FIELD(key):
+    return f"Missing {key} field in JSON body."
 
-def INVALID_FIELD(key): return f"Invalid field: {key}."
+def INVALID_FIELD(key):
+    return f"Invalid field: {key}."
