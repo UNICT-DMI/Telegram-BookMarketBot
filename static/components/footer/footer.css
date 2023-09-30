@@ -1,0 +1,15 @@
+custom-footer {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    font-size: 16px;
+}
+
+custom-footer .column {
+    margin-right: 80px;
+    margin-bottom: 22px;
+}
+
+custom-footer a {
+    margin-top: 5px;
+}

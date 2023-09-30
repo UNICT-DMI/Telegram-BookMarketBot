@@ -1,0 +1,49 @@
+.page {
+    --animation-time: 250ms; /* keep in ms for javasceript */
+    flex-direction: column;
+
+    /* position: absolute; */
+    min-width: 980px;
+    transition: opacity var(--animation-time) ease-in-out,
+                translate var(--animation-time) ease-in-out;
+}
+
+.page.hidden {
+    opacity: 0%;
+}
+
+.prepare-to-show {
+    display: flex !important;
+}
+
+.stop-animation {
+    transition: none !important;
+}
+
+@media (max-width: 1030px) {
+    .page {
+        min-width: calc(100vw - 50px);
+    }
+}
+
+
+/* -- Fade in-out -- */
+.fade-out {
+    opacity: 0%;
+}
+
+.fade-in {
+    opacity: 100% !important;
+}
+
+
+/* -- Slide in-out -- */
+.slide-left {
+    translate: -100vw 0px;
+    opacity: 0%;
+}
+
+.slide-right {
+    translate: +100vw 0px;
+    opacity: 0%;
+}

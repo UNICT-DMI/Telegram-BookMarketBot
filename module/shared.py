@@ -71,6 +71,7 @@ SELECT = "select"
 
 FIND = "find"
 
+
 # Delete
 DELETE = "delete"
 
@@ -81,6 +82,8 @@ DELETING = "Eliminazione del libro selezionato..."
 DELETED = "Libro eliminato."
 
 SELECT_BOOK_TO_DELETE = "Quale libro vuoi eliminare?"
+
+DELETE_UNAUTHORIZED = "L'username risulta diverso da quello del venitore originale."
 
 
 # Books and Sales
@@ -103,9 +106,19 @@ NOTHING_FOUND = "Non ho trovato nulla."
 BOOK_NOT_AVAILABLE = "Libro non trovato. Controlla di aver inserito correttamente l'ISBN. Se l'ISBN è corretto, utilizza il comando /richiedi per fare una richiesta di inserimento manuale."
 
 
-#Scraping
+# Scraping
 URL_1 = "https://catalogo.unict.it/search/i?SEARCH="
 
 URL_2 = "&sortdropdown=-&searchscope=9"
 
 NO_MATCHES = "No matches found"
+
+
+# API error messages
+INVALID_DATA = "Invalid data. Make sure you have set the Content-Type header to \"application/json\"."
+
+def MISSING_FIELD(key):
+    return f"Missing {key} field in JSON body."
+
+def INVALID_FIELD(key):
+    return f"Invalid field: {key}."

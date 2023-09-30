@@ -1,0 +1,52 @@
+form-page {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+custom-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+form-case {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 2px solid rgb(var(--accent-color));
+    padding: 12px;
+    margin: 12px;
+    border-radius: 4px;
+}
+
+form-case icon-container {
+    margin-right: 8px;
+}
+
+form-case input {
+    font-size: 20px;
+}
+
+form-case label {
+    opacity: 60%;
+    font-size: 20px;
+}
+
+form-case select {
+    margin-left: 12px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    padding: 5px;
+}
+
+custom-form custom-button {
+    margin-top: 12px;
+    align-self: center;
+}

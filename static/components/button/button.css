@@ -1,0 +1,30 @@
+header-button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.custom-button {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: rgba(var(--accent-color), 0.1);
+    transition: background-color 300ms ease-in-out;
+    cursor: pointer;
+    width: fit-content;
+    margin: 5px;
+}
+
+.custom-button:hover {
+    background-color: rgba(var(--accent-color), 0.2);
+}
+
+button-text {
+    color: rgb(var(--accent-color));
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 8px;
+}

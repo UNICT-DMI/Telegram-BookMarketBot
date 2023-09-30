@@ -15,6 +15,7 @@ def main() -> None:
     handlers(updater)
 
     updater.start_polling()
+    app.bot_token = config_map['token']
     app.run(port=5000, host="0.0.0.0")
 
 
