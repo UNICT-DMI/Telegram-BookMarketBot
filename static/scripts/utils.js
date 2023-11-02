@@ -62,11 +62,5 @@ function sendConfirm(options, onConfirm) {
 // Other constants
 const constants = {
     defaultCover: "static/images/no-cover.png",
-    botUsername: "BookMarketTestBot"
-};
-
-
-// Things to do before submitting:
-// - changing telegram widget bot username
-// - changing username here
-// - /setdomain instructions
+    botUsername: "UNICT_Book_Market_Bot"
+}
